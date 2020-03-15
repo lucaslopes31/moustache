@@ -1,5 +1,5 @@
 /*
-Theme Name: Salient Child Theme | Shared by VestaThemes.com
+Theme Name: Salient Child Theme
 Description: This is a custom child theme for Salient
 Theme URI:   https://themeforest.net/item/salient-responsive-multipurpose-theme/4363266
 Author: ThemeNectar
@@ -8,7 +8,16 @@ Template: salient
 Version: 1.0
 */
 
+#banner-home .absolute {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    transform: translateY(-50%);
+}
 
-
-
-
+#banner-home .hover-wrap {
+    position: static;
+}

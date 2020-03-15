@@ -1436,17 +1436,17 @@ body .dark .testimonial_slider[data-style="multiple_visible"][data-color*="accen
 				
 				#header-outer.small-nav #logo img, 
 				#header-outer.small-nav .logo-spacing img { 
-						height: 16px; 
+						height: 6px; 
 				}
 
 			  .material #header-outer:not(.transparent) .bg-color-stripe { 
-					top: 78px; 
-					height: calc(35vh - 78px); 
+					top: 68px; 
+					height: calc(35vh - 68px); 
 				}
 					
 			  .material #header-outer:not(.transparent).small-nav .bg-color-stripe { 
-					top: 47.111111111111px; 
-					height: calc(35vh - 47.111111111111px); 
+					top: 37.111111111111px; 
+					height: calc(35vh - 37.111111111111px); 
 				}
 		  }
 			
@@ -1460,7 +1460,7 @@ body .dark .testimonial_slider[data-style="multiple_visible"][data-color*="accen
 
 		  #header-outer #logo img, 
 			#header-outer .logo-spacing img { 
-				height: 22px; 
+				height: 12px; 
 			}
 		 #header-outer[data-lhe="animated_underline"] #top nav > ul > li > a,
 		 #top nav > ul > li[class*="button_solid_color"] > a, 
@@ -1490,7 +1490,7 @@ body .dark .testimonial_slider[data-style="multiple_visible"][data-color*="accen
 			 padding-right: 7px; 
 		 }
 		 #header-space { 
-		 height: 78px;
+		 height: 68px;
 	 }
 	 @media only screen and (max-width: 999px) {
 		 #header-space { 
@@ -1507,20 +1507,19 @@ body .dark .testimonial_slider[data-style="multiple_visible"][data-color*="accen
 		.using-mobile-browser .wpb_row.vc_row-o-full-height.top-level > .col.span_12 { 
 			min-height: calc(100vh - 100px); 
 		}
-		.admin-bar #page-header-wrap.fullscreen-header,
-			.admin-bar #page-header-wrap.fullscreen-header #page-header-bg,
-			html:not(.nectar-box-roll-loaded) .admin-bar .nectar-box-roll > #page-header-bg.fullscreen-header,
-			.admin-bar .nectar_fullscreen_zoom_recent_projects,
-			.admin-bar .nectar-slider-wrap[data-fullscreen="true"]:not(.loaded), 
-			.admin-bar .nectar-slider-wrap[data-fullscreen="true"]:not(.loaded) .swiper-container,
-			.admin-bar #nectar_fullscreen_rows:not(.afterLoaded):not([data-mobile-disable="on"]) > div  {
-				height: calc(100vh - 47px - 46px);
+		#page-header-wrap.fullscreen-header,
+			#page-header-wrap.fullscreen-header #page-header-bg,
+			 html:not(.nectar-box-roll-loaded) .nectar-box-roll > #page-header-bg.fullscreen-header,
+			 .nectar_fullscreen_zoom_recent_projects,
+			 .nectar-slider-wrap[data-fullscreen="true"]:not(.loaded), 
+			 .nectar-slider-wrap[data-fullscreen="true"]:not(.loaded) .swiper-container,
+			 #nectar_fullscreen_rows:not(.afterLoaded):not([data-mobile-disable="on"]) > div {
+				height: calc(100vh - 47px);
 			}
-			.admin-bar .wpb_row.vc_row-o-full-height.top-level, 
-			.admin-bar .wpb_row.vc_row-o-full-height.top-level > .col.span_12 { 
-				min-height: calc(100vh - 47px - 46px); 
-			}
-			[data-bg-header="true"][data-permanent-transparent="1"] #page-header-wrap.fullscreen-header,
+			.wpb_row.vc_row-o-full-height.top-level, 
+			.wpb_row.vc_row-o-full-height.top-level > .col.span_12 { 
+				min-height: calc(100vh - 47px); 
+			}[data-bg-header="true"][data-permanent-transparent="1"] #page-header-wrap.fullscreen-header,
 		[data-bg-header="true"][data-permanent-transparent="1"] #page-header-wrap.fullscreen-header #page-header-bg,
 		html:not(.nectar-box-roll-loaded) [data-bg-header="true"][data-permanent-transparent="1"] .nectar-box-roll > #page-header-bg.fullscreen-header,
 		[data-bg-header="true"][data-permanent-transparent="1"] .nectar_fullscreen_zoom_recent_projects,
@@ -1554,18 +1553,7 @@ body .dark .testimonial_slider[data-style="multiple_visible"][data-color*="accen
 					 background-color: rgba(255,255,255,100); 
 				 }.material #header-outer:not(.transparent) .bg-color-stripe { 
 					 display: none; 
-				 }
-			 #search-outer .ui-widget-content, 
-			 body:not([data-header-format="left-header"]) #top .sf-menu li ul, 
-			 #top nav > ul > .megamenu > .sub-menu,
-			 body #top nav > ul > .megamenu > .sub-menu > li > a, 
-			 #header-outer .widget_shopping_cart .cart_list a, 
-			 #header-secondary-outer ul ul li a, 
-			 #header-outer .widget_shopping_cart .cart_list li, 
-			 .woocommerce .cart-notification, 
-			 #header-outer .widget_shopping_cart_content { 
-					background-color: rgba(255,255,255,100)!important; 
-				}@media only screen and (min-width: 1000px) and (max-width: 1300px) {
+				 } .portfolio-loading, #ajax-loading-screen .loading-icon, .loading-icon, .pp_loaderIcon { background-image: url(""); } @media only screen and (min-width: 1000px) and (max-width: 1300px) {
 	    .nectar-slider-wrap[data-full-width="true"] .swiper-slide .content h2, 
 	    .nectar-slider-wrap[data-full-width="boxed-full-width"] .swiper-slide .content h2,
 	    .full-width-content .vc_span12 .swiper-slide .content h2 {
