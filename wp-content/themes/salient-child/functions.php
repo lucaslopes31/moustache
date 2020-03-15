@@ -196,5 +196,56 @@ function salient_child_enqueue_styles() {
 		}
 }
 
+function custom_post_grid($atts)
+{
+
+	global $post;
+
+	extract(shortcode_atts(array(
+		'post_type' 	=> 'post',
+		'num'     		=> '-1',
+		'order'   		=> 'DESC',
+		'orderby' 		=> 'post_date'
+	), $atts));
+
+	$args = array(
+		'post_type'      => $post_type,
+		'post_status' 	 => 'publish',
+		'posts_per_page' => $num,
+		'order'          => $order,
+		'orderby'        => $orderby,
+	);
+
+	$output = '';
+
+	$posts = get_posts($args);
+
+	foreach ($posts as $post) {
+
+		setup_postdata($post);
+
+		$output .= '<div class="single-especie-grid">';
+		$output .= '<a class="single-especie-link" href="' . get_the_permalink() . '">';
+		$output .= '<img class="single-especie-image" src="' . (get_field('preview_img') ? get_field('preview_img') : '/wp-content/uploads/2020/02/no-image.png') . '" alt="' . get_the_title() . '"/>';
+		$output .= '<div class="single-especie-title-container title-container-alt">';
+		$output .= '<div class="single-especie-content">';
+		$output .= '<p class="single-especie-name">';
+		$output .= get_the_title();
+		$output .= '</p>';
+		$output .= '<p class="single-especie-scientific">';
+		$output .= get_field('nome_cientifico') ? get_field('nome_cientifico') : '-';
+		$output .= '</p>';
+		$output .= '</div>';
+		$output .= '</div>';
+		$output .= '</a>';
+		$output .= '</div>';
+	}
+
+	wp_reset_postdata();
+
+	return '<div class="custom-post-grid ' . $post_type . '-grid" data-type="' . $post_type . '">' . $output . '</div>';
+}
+add_shortcode('especies_post_grid', 'custom_post_grid');
+
 
 ?>
