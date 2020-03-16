@@ -232,6 +232,7 @@ $nectar_options        = get_nectar_theme_options();
 								nectar_header_social_icons( 'main-nav' );
 								echo '</li></ul>';
 							}
+							echo do_shortcode('[ivory-search id="102" title="Default Search Form"]');
 							?>
 						</nav>
 					</div><!--/right-aligned-menu-items-->

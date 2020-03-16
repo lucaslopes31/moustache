@@ -190,13 +190,19 @@ function salient_child_enqueue_styles() {
 		
 		$nectar_theme_version = nectar_get_theme_version();
 		wp_enqueue_style( 'salient-child-style', get_stylesheet_directory_uri() . '/style.css', '', $nectar_theme_version );
+		wp_enqueue_style( 'salient-child-responsive', get_stylesheet_directory_uri() . '/responsive.css', '', $nectar_theme_version );
 		wp_enqueue_script( 'salient-child-script', get_stylesheet_directory_uri() . '/scripts.js', '', $nectar_theme_version );
+		wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri() . '/jquery_validation/dist/jquery.validate.min.js', '', $nectar_theme_version );
+		wp_enqueue_script( 'jquery-validate-additional-method', get_stylesheet_directory_uri() . '/jquery_validation/dist/additional-methods.min.js', '', $nectar_theme_version );
+		wp_enqueue_script( 'jquery-validate-localization', get_stylesheet_directory_uri() . '/jquery_validation/dist/localization/messages_pt_BR.min.js', '', $nectar_theme_version );
+		wp_enqueue_script( 'mask-js', get_stylesheet_directory_uri() . '/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js', '', $nectar_theme_version );
 		
     if ( is_rtl() ) {
    		wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
 		}
 }
 
+//CUSTOM POST GRID
 function custom_post_grid($atts)
 {
 
@@ -241,7 +247,7 @@ function custom_post_grid($atts)
                     $output .= '</figure>';
                 $output .= '</a>';
                 $output .= '<label class="custom-post-category">';
-                    $output .= get_categories()[0]->name;
+                    $output .= get_the_category()[0]->name;
                 $output .= '</label>';
             $output .= '</div>';
             $output .= '<div class="custom-post-content">';
@@ -262,5 +268,132 @@ function custom_post_grid($atts)
 }
 add_shortcode('custom_post_grid', 'custom_post_grid');
 
+//FORMULÁRIO HOME PAGE
+function form_home($atts)
+{
+    $nonce = wp_create_nonce("insert_db_nonce");
+    $output = '';
+
+    $output .= '<form action="javascript:void(0)" autocomplete="off" method="POST" class="default-form" id="form-home">';
+        $output .= '<input name="action" id="action" type="hidden" value="insert_db" />';
+        $output .= '<input name="nonce" id="nonce" type="hidden" value="' . $nonce . '" />';
+        $output .= '<div class="input-group">';
+            $output .= '<input name="nome" id="nome" type="text" placeholder="Seu nome" />';
+        $output .= '</div>';
+        $output .= '<div class="input-group">';
+            $output .= '<input name="cep" id="cep" type="text" placeholder="CEP" />';
+        $output .= '</div>';
+        $output .= '<div class="input-group">';
+            $output .= '<input name="email" id="email" type="email" placeholder="Seu e-mail" />';
+        $output .= '</div>';
+        $output .= '<div class="input-group input-group-flex">';
+            $output .= '<div class="input-group">';
+                $output .= '<input name="endereco" id="endereco" type="text" placeholder="Endereço" />';
+            $output .= '</div>';
+            $output .= '<div class="input-group">';
+                $output .= '<input name="numero" id="numero" type="text" placeholder="Número" />';
+            $output .= '</div>';
+        $output .= '</div>';
+        $output .= '<div class="input-group">';
+            $output .= '<input name="telefone" id="telefone" type="tel" placeholder="Seu telefone" />';
+        $output .= '</div>';
+        $output .= '<div class="input-group">';
+            $output .= '<input name="bairro" id="bairro" type="text" placeholder="Bairro" />';
+        $output .= '</div>';
+        $output .= '<div class="input-group">';
+            $output .= '<input name="nasc" id="nasc" type="text" placeholder="Data de Nascimento" />';
+        $output .= '</div>';
+        $output .= '<div class="input-group input-group-flex">';
+            $output .= '<div class="input-group">';
+                $output .= '<input name="cidade" id="cidade" type="text" placeholder="Cidade" />';
+            $output .= '</div>';
+            $output .= '<div class="input-group">';
+                $output .= '<input name="estado" id="estado" type="text" placeholder="Estado" />';
+            $output .= '</div>';
+        $output .= '</div>';
+            $output .= '<div class="input-group input-group-middle">';
+                $output .= '<input name="enviar" id="enviar" type="submit" value="Enviar Dados" />';
+                $output .= '<i class="spin">Enviando...</i>';
+            $output .= '</div>';
+    $output .= '</form>';
+
+    return $output;
+}
+add_shortcode('form_home', 'form_home');
+
+//INSERT INTO DB
+add_action("wp_ajax_insert_db", "insert_db");
+add_action("wp_ajax_nopriv_insert_db", "please_login");
+
+function insert_db() {
+
+    if ( !wp_verify_nonce( $_REQUEST['nonce'], "insert_db_nonce")) {
+        exit("Error");
+    }
+    
+    $cep = $_POST["cep"] ? $_POST["cep"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_cep')));
+    $endereco = $_POST["endereco"] ? $_POST["endereco"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_endereco')));
+    $numero = $_POST["numero"] ? $_POST["numero"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_numero')));
+    $bairro = $_POST["bairro"] ? $_POST["bairro"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_bairro')));
+    $cidade = $_POST["cidade"] ? $_POST["cidade"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_cidade')));
+    $estado = $_POST["estado"] ? $_POST["estado"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_estado')));
+    $nome = $_POST["nome"] ? $_POST["nome"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_nome')));
+    $email = $_POST["email"] ? $_POST["email"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_email')));
+    $telefone = $_POST["telefone"] ? $_POST["telefone"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_telefone')));
+    $nasc = $_POST["nasc"] ? $_POST["nasc"] : die(json_encode(array('type'=>'error','code'=>'invalid_field','msg'=>'invalid_nasc')));
+
+    global $wpdb;
+    $wpdb->insert(
+        "mt_endereco",
+        array(
+            "cep" => $cep,
+            "endereco" => $endereco,
+            "numero" => $numero,
+            "bairro" => $bairro,
+            "cidade" => $cidade,
+            "estado" => $estado
+        )
+    );
+    $endId = $wpdb->insert_id;
+
+    $insertUser = $wpdb->insert(
+        "mt_cliente",
+        array(
+            "endereco_id" => $endId,
+            "nome" => $nome,
+            "email" => $email,
+            "telefone" => $telefone,
+            "nasc" => $nasc,
+        )
+    );
+    
+    if($insertUser) {
+        $result['type'] = "success";
+    }
+    else {
+        $result['type'] = "error";
+    }
+    
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        echo json_encode($result);
+    }
+    else {
+        header("Location: ".$_SERVER["HTTP_REFERER"]);
+    }
+
+    die();
+}
+
+add_action( 'init', 'script_enqueuer' );
+
+function script_enqueuer() {
+   
+   wp_register_script( "insert_db", get_stylesheet_directory_uri() . '/insert_db.js', arraY('jquery') );
+   
+   wp_localize_script( 'insert_db', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+   
+   wp_enqueue_script( 'jquery' );
+   wp_enqueue_script( 'insert_db' );
+}
 
 ?>

@@ -7281,7 +7281,7 @@ msgid "Please try again with different keywords."
 msgstr ""
 
 #: searchform.php:14
-msgid "Search..."
+msgid "Buscar"
 msgstr ""
 
 #: searchform.php:14

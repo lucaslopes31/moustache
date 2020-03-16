@@ -1,0 +1,84 @@
+/*
+Theme Name: Salient Child Theme
+Description: This is a custom child theme for Salient
+Theme URI:   https://themeforest.net/item/salient-responsive-multipurpose-theme/4363266
+Author: ThemeNectar
+Author URI:  https://themeforest.net/user/themenectar
+Template: salient
+Version: 1.0
+*/
+@media screen and (max-width: 568px) {
+    #banner-home .absolute {
+        max-width: 70%;
+    }
+
+    .cabecalho-home {
+        margin: 0;
+        padding: 1.5rem 0;
+    }
+
+    .custom-post-grid .custom-post-grid-single {
+        margin: 0 10px 15px;
+        box-shadow: 0px 5px 10px #C6C6C5;
+    }
+
+    .custom-post-grid.is-carousel .slick-list {
+        margin: 0 -10px;
+    }
+
+    .custom-post-grid {
+        margin-bottom: 40px !important;
+    }
+
+    .custom-post-grid .slick-arrow {
+        bottom: -40px;
+    }
+
+    .default-form {
+        display: block;
+    }
+
+    .input-group {
+        margin-bottom: .5rem;
+    }
+
+    .input-group .input-group {
+        margin: 0;
+    }
+
+    .default-form .input-group.input-group-flex .input-group:first-of-type {
+        margin-right: .5rem;
+        flex-grow: .65;
+    }
+
+    .default-form .input-group.input-group-flex .input-group:last-of-type {
+        flex-grow: .35;
+    }
+
+    .row-locations>.col {
+        padding: 0 0 1rem;
+    }
+
+    #footer-outer #footer-widgets .col.span_6:last-of-type .textwidget {
+        justify-content: center;
+    }
+
+    #footer-widgets .textwidget {
+        text-align: center;
+    }
+
+    #footer-widgets .container .col {
+        margin-bottom: 1rem;
+    }
+
+    .spin {
+        position: relative;
+        text-align: center;
+        margin-top: .5rem;
+        justify-content: center;
+    }
+
+    #enviar {
+        margin-top: 1rem;
+    }
+}
