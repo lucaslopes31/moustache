@@ -1,4 +1,3 @@
-# moustache
-landing page
+# Moustache
 
 Landing Page for Moustache Fullstack test
