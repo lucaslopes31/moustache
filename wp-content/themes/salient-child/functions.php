@@ -190,6 +190,7 @@ function salient_child_enqueue_styles() {
 		
 		$nectar_theme_version = nectar_get_theme_version();
 		wp_enqueue_style( 'salient-child-style', get_stylesheet_directory_uri() . '/style.css', '', $nectar_theme_version );
+		wp_enqueue_script( 'salient-child-script', get_stylesheet_directory_uri() . '/scripts.js', '', $nectar_theme_version );
 		
     if ( is_rtl() ) {
    		wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
@@ -205,7 +206,8 @@ function custom_post_grid($atts)
 		'post_type' 	=> 'post',
 		'num'     		=> '-1',
 		'order'   		=> 'DESC',
-		'orderby' 		=> 'post_date'
+		'orderby' 		=> 'post_date',
+		'carousel' 		=> false
 	), $atts));
 
 	$args = array(
@@ -216,36 +218,49 @@ function custom_post_grid($atts)
 		'orderby'        => $orderby,
 	);
 
-	$output = '';
+    $script = '';
 
-	$posts = get_posts($args);
+    if ($carousel)
+        $script .= '<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>';
+        $script .= '<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>';
+        $script .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" />';
+        
+    $output = '';
+
+    $posts = get_posts($args);
 
 	foreach ($posts as $post) {
 
 		setup_postdata($post);
 
-		$output .= '<div class="single-especie-grid">';
-		$output .= '<a class="single-especie-link" href="' . get_the_permalink() . '">';
-		$output .= '<img class="single-especie-image" src="' . (get_field('preview_img') ? get_field('preview_img') : '/wp-content/uploads/2020/02/no-image.png') . '" alt="' . get_the_title() . '"/>';
-		$output .= '<div class="single-especie-title-container title-container-alt">';
-		$output .= '<div class="single-especie-content">';
-		$output .= '<p class="single-especie-name">';
-		$output .= get_the_title();
-		$output .= '</p>';
-		$output .= '<p class="single-especie-scientific">';
-		$output .= get_field('nome_cientifico') ? get_field('nome_cientifico') : '-';
-		$output .= '</p>';
-		$output .= '</div>';
-		$output .= '</div>';
-		$output .= '</a>';
+		$output .= '<div class="custom-post-grid-single">';
+            $output .= '<div class="custom-post-header">';
+                $output .= '<a class="custom-post-link" href="' . get_the_permalink() . '">';
+                    $output .= '<figure class="custom-post-figure">';
+                        $output .= '<img class="custom-post-image" src="' . (get_the_post_thumbnail_url() ? get_the_post_thumbnail_url() : '/wp-content/uploads/2020/03/no-image.png') . '" alt="' . get_the_title() . '"/>';
+                    $output .= '</figure>';
+                $output .= '</a>';
+                $output .= '<label class="custom-post-category">';
+                    $output .= get_categories()[0]->name;
+                $output .= '</label>';
+            $output .= '</div>';
+            $output .= '<div class="custom-post-content">';
+                $output .= '<h3 class="custom-post-name">';
+                    $output .= get_the_title();
+                $output .= '</h3>';
+                $output .= '<p class="custom-post-excerpt">';
+                    $output .= get_the_excerpt();
+                $output .= '</p>';
+                $output .= '<a href="' . get_the_permalink() . '" target="_blank" class="custom-post-btn">Link Externo</a>';
+            $output .= '</div>';
 		$output .= '</div>';
 	}
 
 	wp_reset_postdata();
 
-	return '<div class="custom-post-grid ' . $post_type . '-grid" data-type="' . $post_type . '">' . $output . '</div>';
+	return $script . '<div class="custom-post-grid ' . $post_type . '-grid ' . ($carousel ? 'is-carousel' : '') . '" data-type="' . $post_type . '">' . $output . '</div>';
 }
-add_shortcode('especies_post_grid', 'custom_post_grid');
+add_shortcode('custom_post_grid', 'custom_post_grid');
 
 
 ?>
